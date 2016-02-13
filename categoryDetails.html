@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+		
+        <title>simpMemo</title>
+    </head>
+<body class="backg">
+<nav class="navbar navbar-default navbar-fixed-top décor">
+<div class="container">
+<div class="col-md-12" style="text-align:center;padding:10px;">
+<span style="color:#fff;font-size:25px;">simpMemo</a></span>
+</div>
+</div>
+</nav>
+<div class="container">
+<div class="divide"></div>
+<div class="col-md-12">
+<!--<span style="text-align:center;"><i class="fa fa-edit fa fa-4x"></i></span>-->
+<ul id="subcat" class="list-group"></ul>
+<div class="divide"></div>
+<!--<p>Sorry ! No items in this category</p>-->
+</div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom décor">
+<div class="container" >
+<div class="col-md-12" style="margin-top:10px;margin-bottom:10px;">
+<span style="color:#fff;"><a href="addItemToCategory.html" style="text-decoration:none;color:#fff;"> <i class="fa fa-plus-circle fa-2x"></i></a></span>
+<span style="color:#fff;" class="pull-right"><a href="index.html" style="text-decoration:none;color:#fff;"> <i class="fa fa-arrow-circle-left fa-2x"></i></a></span>
+</div>
+</div>
+</nav>
+<div class="modal fade" id="longModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+	  <!--<h4>Do you want to delete ?</h4>-->
+	  <h4>Delete Multiple Items</h4>
+        
+      </div>
+      <div class="modal-body">
+       <p><i class="fa fa-exclamation-triangle" style="color:#f0ad4e;"></i> Are you sure you to delete this item?</p>
+       
+          <div class="form-group pull-right">
+		 
+          <a  class="btn btn-success hidemodal" id="catDel" class="inline"> <i class="fa fa-trash-o fa-1x"></i> Yes</a>
+          <a  class="btn btn-danger hidemodal" id="catCancel" class="inline"> <i class="fa fa-times-circle-o fa-1x"></i> No</a>
+          
+		 </div>
+		 <br><br>
+		  
+      </div>
+       </div>
+    </div>
+  </div>
+		 
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+		<script>
+			$(document).ready(function() {
+			var check=0;
+			var suv;
+			if(localStorage.getItem('load'))
+			{
+				check=1;
+				var load = localStorage.getItem("load");
+				var retrievedData = localStorage.getItem("quentinTarantino");
+				var movies2 = JSON.parse(retrievedData);
+				
+				var thiscat = movies2[load];
+				//==========Main code start==================================================
+				var ext="";
+					if(localStorage.getItem(thiscat))
+					{
+					
+						var retrieve = localStorage.getItem(thiscat);
+						var mov2 = JSON.parse(retrieve);
+						if(mov2.length==0)
+						{
+							localStorage.removeItem(thiscat);
+							window.location.assign("categoryDetails.html");
+						}
+						
+						
+						for (i = 0; i < mov2.length; i++) 
+						{ 
+							var dataa = localStorage.getItem(mov2[i]);
+							var cdt = dataa.substr(0, 11);
+							var res = dataa.substr(11, 10);
+							
+							var res1 = res+"...";
+							ext=ext+'<li id="'+mov2[i]+'" class="list-group-item raj" >'+res1+' <span class="pull-right" style="color:red;">'+cdt+' '+'<i class="fa fa-angle-double-right" style="color:#000;"></i></span></li>';
+						}
+						
+					}
+					else
+					{
+						ext ="Empty";
+					}
+					
+					$('#subcat').html(ext);
+
+				//==========Main code end==================================================
+			}
+			else
+			{
+				alert("Shankar");
+			}
+			//=========Delete Catagory start=================
+			$('.raj').click(function() {
+				var yed= this.id;
+				localStorage.setItem("opp", yed);
+				window.location.assign("categoryEachDetails.html");
+			
+				
+						
+			});
+			$('.raj').on('mousedown' ,function(){  
+					suv = this.id;
+					
+					longpress=true;    
+					setTimeout(function() {    
+					if(longpress)
+					 //alert("long press works!"); 
+					$("#longModal").modal("show");
+								  }, 500);
+			});
+			$(".raj").on('mouseup' ,function(){      
+				longpress=false;    
+			});
+			//=======Delete start ======================================
+					$('#catDel').click(function() {
+					
+						
+						localStorage.removeItem(suv);
+						var s = suv;
+						var fields = s.split(/_/);
+						
+						var lens = fields.length;
+						var folder="";
+						for(i=0;i<lens-1;i++)
+						{
+							folder=folder+fields[i];
+							if(lens > 2)
+							{
+								if(i<lens-2)
+								{
+									folder=folder+"_";
+								}
+							
+							}
+						}
+						
+						var fog = localStorage.getItem(folder);
+						var ever = JSON.parse(fog);
+						var key ;
+						for(i=0;i<ever.length;i++)
+						{
+							if(ever[i]==suv)
+							{
+								key=i;
+							}
+						}
+						
+						ever.splice(key, 1);
+						
+						localStorage.setItem(folder, JSON.stringify(ever));
+						window.location.assign("categoryDetails.html");
+						
+						//window.location.assign("index.html");
+						
+					
+					});
+					
+					$('#catCancel').click(function() {
+					$("#longModal").modal("hide");
+					});
+				//=======Delete End ======================================
+			//=========Delete Catagory End=================
+			});
+		</script>
+
+    </body>
+</html>
