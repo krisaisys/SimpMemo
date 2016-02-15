@@ -6785,3 +6785,9 @@ button.close {
 .text-center{text-align:center;}
 /*.backg{background-color:#C5E1A5}*/
 .backg{background-color:#e1e1e1}
+@media only screen and (max-width: 768px) {
+  body{
+  font-size:25px;
+  }
+  
+  }
