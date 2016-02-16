@@ -6771,12 +6771,12 @@ button.close {
 }
 /*custom css */
 .divid{margin:10px;}
-.divide{margin:80px;}
+.divide{margin:90px;}
 .dividehomtop{margin:70px;}
 .marg{margin-top:10px;}
 .fullwidth{width:100% important!}
 .imgcent{text-align:center;}
-.fontli{font-size:25px;}
+.fontli{font-size:38px;}
 .calendar-text { margin-top: .03em;}
 .btn-circle{border-radius:50%;}
 .movebak{z-index:-1;}
@@ -6787,10 +6787,13 @@ button.close {
 .backg{background-color:#e1e1e1}
 @media only screen and (max-width: 768px) {
   body{
-  font-size:35px;
+  font-size:38px;
   }
-  li{font-size:35px;}
-  p{font-size:35px;}
-  span{font-size:35px;}
+  li{font-size:38px;}
+  p{font-size:38px;}
+  span{font-size:38px;}
+  h4{font-size:38px;}
+  a{font-size:38px;}
+  .fontli{font-size:38px;}
   
   }
