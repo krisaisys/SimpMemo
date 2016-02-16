@@ -6787,10 +6787,10 @@ button.close {
 .backg{background-color:#e1e1e1}
 @media only screen and (max-width: 768px) {
   body{
-  font-size:25px;
+  font-size:35px;
   }
-  li{font-size25px;}
-  p{font-size:25px;}
-  span{font-size:25px;}
+  li{font-size:35px;}
+  p{font-size:35px;}
+  span{font-size:35px;}
   
   }
