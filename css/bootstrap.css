@@ -5879,9 +5879,9 @@ button.close {
 .modal-open {
   overflow: hidden;
 }
-.modal {
+.modal { 
   position: fixed;
-  top: 30%;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
